@@ -1,9 +1,13 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "API para receber e tratar mensagens enviadas pelo Messenger da Meta.",
+        "description": "Estrutura que representa um botão no payload",
         "title": "Smarters API",
-        "contact": {},
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
         "version": "1.0"
     },
     "host": "localhost:8080",
@@ -36,6 +40,24 @@
                         "schema": {
                             "$ref": "#/definitions/main.MessageSent"
                         }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/main.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/main.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/main.ErrorResponse"
+                        }
                     }
                 }
             }
@@ -43,133 +65,223 @@
     },
     "definitions": {
         "main.Attachment": {
+            "description": "Estrutura que representa um anexo na mensagem",
             "type": "object",
             "properties": {
                 "payload": {
-                    "$ref": "#/definitions/main.Payload"
+                    "description": "Payload do anexo",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/main.Payload"
+                        }
+                    ]
                 },
                 "type": {
-                    "type": "string"
+                    "description": "Tipo de anexo",
+                    "type": "string",
+                    "example": "template"
                 }
             }
         },
         "main.Button": {
+            "description": "Estrutura que representa um botão no payload",
             "type": "object",
             "properties": {
                 "payload": {
-                    "type": "string"
+                    "description": "Payload do botão",
+                    "type": "string",
+                    "example": "START_PAYLOAD"
                 },
                 "title": {
-                    "type": "string"
+                    "description": "Título do botão",
+                    "type": "string",
+                    "example": "Começar"
                 },
                 "type": {
-                    "type": "string"
+                    "description": "Tipo do botão",
+                    "type": "string",
+                    "example": "postback"
                 }
             }
         },
         "main.Content": {
+            "description": "Estrutura que representa o conteúdo da mensagem enviada",
             "type": "object",
             "properties": {
                 "attachment": {
-                    "$ref": "#/definitions/main.Attachment"
+                    "description": "Anexo da mensagem",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/main.Attachment"
+                        }
+                    ]
                 },
                 "text": {
+                    "description": "Texto da mensagem",
+                    "type": "string"
+                }
+            }
+        },
+        "main.ErrorResponse": {
+            "description": "Estrutura para resposta de erro",
+            "type": "object",
+            "properties": {
+                "error": {
                     "type": "string"
                 }
             }
         },
         "main.Message": {
+            "description": "Estrutura que representa os detalhes de uma mensagem de texto",
             "type": "object",
             "properties": {
                 "mid": {
-                    "type": "string"
+                    "description": "ID da mensagem",
+                    "type": "string",
+                    "example": "mid.1457764197618:41d102a3e1ae206a38"
                 },
                 "text": {
-                    "type": "string"
+                    "description": "Texto da mensagem",
+                    "type": "string",
+                    "example": "ping"
                 }
             }
         },
         "main.MessageReceived": {
+            "description": "Estrutura que representa uma mensagem recebida do Messenger.",
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "string"
+                    "description": "ID da página",
+                    "type": "string",
+                    "example": "PAGE_ID"
                 },
                 "messaging": {
+                    "description": "Array de mensagens",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/main.Messaging"
                     }
                 },
                 "time": {
-                    "type": "integer"
+                    "description": "Timestamp da mensagem",
+                    "type": "integer",
+                    "example": 1458692752478
                 }
             }
         },
         "main.MessageSent": {
+            "description": "Estrutura que representa uma mensagem enviada ao Messenger",
             "type": "object",
             "properties": {
                 "message": {
-                    "$ref": "#/definitions/main.Content"
+                    "description": "Conteúdo da mensagem",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/main.Content"
+                        }
+                    ]
                 },
                 "recipient": {
-                    "$ref": "#/definitions/main.User"
+                    "description": "Informações do destinatário",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/main.User"
+                        }
+                    ]
                 }
             }
         },
         "main.Messaging": {
+            "description": "Estrutura que contém os detalhes da mensagem",
             "type": "object",
             "properties": {
                 "message": {
-                    "$ref": "#/definitions/main.Message"
+                    "description": "Detalhes da mensagem de texto",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/main.Message"
+                        }
+                    ]
                 },
                 "postback": {
-                    "$ref": "#/definitions/main.Postback"
+                    "description": "Detalhes do postback",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/main.Postback"
+                        }
+                    ]
                 },
                 "recipient": {
-                    "$ref": "#/definitions/main.User"
+                    "description": "Informações do destinatário",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/main.User"
+                        }
+                    ]
                 },
                 "sender": {
-                    "$ref": "#/definitions/main.User"
+                    "description": "Informações do remetente",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/main.User"
+                        }
+                    ]
                 },
                 "timestamp": {
-                    "type": "integer"
+                    "description": "Timestamp da mensagem",
+                    "type": "integer",
+                    "example": 1458692752478
                 }
             }
         },
         "main.Payload": {
+            "description": "Estrutura que representa o payload de um anexo",
             "type": "object",
             "properties": {
                 "buttons": {
+                    "description": "Botões do template",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/main.Button"
                     }
                 },
                 "template_type": {
-                    "type": "string"
+                    "description": "Tipo de template",
+                    "type": "string",
+                    "example": "button"
                 },
                 "text": {
-                    "type": "string"
+                    "description": "Texto do template",
+                    "type": "string",
+                    "example": "O que você gostaria de fazer a seguir?"
                 }
             }
         },
         "main.Postback": {
+            "description": "Estrutura que representa os detalhes de um postback",
             "type": "object",
             "properties": {
                 "mid": {
-                    "type": "string"
+                    "description": "ID do postback",
+                    "type": "string",
+                    "example": "mid.1457764197618:41d102a3e1ae206a38"
                 },
                 "payload": {
-                    "type": "string"
+                    "description": "Payload do postback",
+                    "type": "string",
+                    "example": "START_PAYLOAD"
                 }
             }
         },
         "main.User": {
+            "description": "Estrutura que representa um usuário",
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "string"
+                    "description": "ID do usuário",
+                    "type": "string",
+                    "example": "USER_ID"
                 }
             }
         }

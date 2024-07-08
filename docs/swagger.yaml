@@ -1,93 +1,159 @@
 basePath: /
 definitions:
   main.Attachment:
+    description: Estrutura que representa um anexo na mensagem
     properties:
       payload:
-        $ref: '#/definitions/main.Payload'
+        allOf:
+        - $ref: '#/definitions/main.Payload'
+        description: Payload do anexo
       type:
+        description: Tipo de anexo
+        example: template
         type: string
     type: object
   main.Button:
+    description: Estrutura que representa um botão no payload
     properties:
       payload:
+        description: Payload do botão
+        example: START_PAYLOAD
         type: string
       title:
+        description: Título do botão
+        example: Começar
         type: string
       type:
+        description: Tipo do botão
+        example: postback
         type: string
     type: object
   main.Content:
+    description: Estrutura que representa o conteúdo da mensagem enviada
     properties:
       attachment:
-        $ref: '#/definitions/main.Attachment'
+        allOf:
+        - $ref: '#/definitions/main.Attachment'
+        description: Anexo da mensagem
       text:
+        description: Texto da mensagem
+        type: string
+    type: object
+  main.ErrorResponse:
+    description: Estrutura para resposta de erro
+    properties:
+      error:
         type: string
     type: object
   main.Message:
+    description: Estrutura que representa os detalhes de uma mensagem de texto
     properties:
       mid:
+        description: ID da mensagem
+        example: mid.1457764197618:41d102a3e1ae206a38
         type: string
       text:
+        description: Texto da mensagem
+        example: ping
         type: string
     type: object
   main.MessageReceived:
+    description: Estrutura que representa uma mensagem recebida do Messenger.
     properties:
       id:
+        description: ID da página
+        example: PAGE_ID
         type: string
       messaging:
+        description: Array de mensagens
         items:
           $ref: '#/definitions/main.Messaging'
         type: array
       time:
+        description: Timestamp da mensagem
+        example: 1458692752478
         type: integer
     type: object
   main.MessageSent:
+    description: Estrutura que representa uma mensagem enviada ao Messenger
     properties:
       message:
-        $ref: '#/definitions/main.Content'
+        allOf:
+        - $ref: '#/definitions/main.Content'
+        description: Conteúdo da mensagem
       recipient:
-        $ref: '#/definitions/main.User'
+        allOf:
+        - $ref: '#/definitions/main.User'
+        description: Informações do destinatário
     type: object
   main.Messaging:
+    description: Estrutura que contém os detalhes da mensagem
     properties:
       message:
-        $ref: '#/definitions/main.Message'
+        allOf:
+        - $ref: '#/definitions/main.Message'
+        description: Detalhes da mensagem de texto
       postback:
-        $ref: '#/definitions/main.Postback'
+        allOf:
+        - $ref: '#/definitions/main.Postback'
+        description: Detalhes do postback
       recipient:
-        $ref: '#/definitions/main.User'
+        allOf:
+        - $ref: '#/definitions/main.User'
+        description: Informações do destinatário
       sender:
-        $ref: '#/definitions/main.User'
+        allOf:
+        - $ref: '#/definitions/main.User'
+        description: Informações do remetente
       timestamp:
+        description: Timestamp da mensagem
+        example: 1458692752478
         type: integer
     type: object
   main.Payload:
+    description: Estrutura que representa o payload de um anexo
     properties:
       buttons:
+        description: Botões do template
         items:
           $ref: '#/definitions/main.Button'
         type: array
       template_type:
+        description: Tipo de template
+        example: button
         type: string
       text:
+        description: Texto do template
+        example: O que você gostaria de fazer a seguir?
         type: string
     type: object
   main.Postback:
+    description: Estrutura que representa os detalhes de um postback
     properties:
       mid:
+        description: ID do postback
+        example: mid.1457764197618:41d102a3e1ae206a38
         type: string
       payload:
+        description: Payload do postback
+        example: START_PAYLOAD
         type: string
     type: object
   main.User:
+    description: Estrutura que representa um usuário
     properties:
       id:
+        description: ID do usuário
+        example: USER_ID
         type: string
     type: object
 host: localhost:8080
 info:
-  contact: {}
-  description: API para receber e tratar mensagens enviadas pelo Messenger da Meta.
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: Estrutura que representa um botão no payload
   title: Smarters API
   version: "1.0"
 paths:
@@ -110,5 +176,17 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/main.MessageSent'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
       summary: Processa mensagens recebidas do Messenger
 swagger: "2.0"

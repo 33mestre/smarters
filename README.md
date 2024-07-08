@@ -45,4 +45,10 @@ O Dockerfile incluído neste repositório configura um ambiente Docker para exec
 A documentação Swagger para esta API está disponível em http://localhost:8080/swagger/index.html quando o servidor está em execução.
 
 
+## Executar
+
+```sh
+ go run main.go
+ ````
+
 
