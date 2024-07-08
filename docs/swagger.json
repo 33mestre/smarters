@@ -1,0 +1,177 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API para receber e tratar mensagens enviadas pelo Messenger da Meta.",
+        "title": "Smarters API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/webhook": {
+            "post": {
+                "description": "Recebe mensagens do Messenger e responde com texto ou botões",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Processa mensagens recebidas do Messenger",
+                "parameters": [
+                    {
+                        "description": "Mensagem recebida",
+                        "name": "message",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.MessageReceived"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.MessageSent"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "main.Attachment": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/main.Payload"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.Button": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.Content": {
+            "type": "object",
+            "properties": {
+                "attachment": {
+                    "$ref": "#/definitions/main.Attachment"
+                },
+                "text": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.Message": {
+            "type": "object",
+            "properties": {
+                "mid": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.MessageReceived": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "messaging": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/main.Messaging"
+                    }
+                },
+                "time": {
+                    "type": "integer"
+                }
+            }
+        },
+        "main.MessageSent": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "$ref": "#/definitions/main.Content"
+                },
+                "recipient": {
+                    "$ref": "#/definitions/main.User"
+                }
+            }
+        },
+        "main.Messaging": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "$ref": "#/definitions/main.Message"
+                },
+                "postback": {
+                    "$ref": "#/definitions/main.Postback"
+                },
+                "recipient": {
+                    "$ref": "#/definitions/main.User"
+                },
+                "sender": {
+                    "$ref": "#/definitions/main.User"
+                },
+                "timestamp": {
+                    "type": "integer"
+                }
+            }
+        },
+        "main.Payload": {
+            "type": "object",
+            "properties": {
+                "buttons": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/main.Button"
+                    }
+                },
+                "template_type": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.Postback": {
+            "type": "object",
+            "properties": {
+                "mid": {
+                    "type": "string"
+                },
+                "payload": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.User": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

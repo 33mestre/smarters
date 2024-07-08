@@ -7,6 +7,7 @@ COPY go.sum ./
 RUN go mod download
 
 COPY *.go ./
+COPY docs ./docs
 
 RUN go build -o /smarters
 

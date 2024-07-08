@@ -1,0 +1,114 @@
+basePath: /
+definitions:
+  main.Attachment:
+    properties:
+      payload:
+        $ref: '#/definitions/main.Payload'
+      type:
+        type: string
+    type: object
+  main.Button:
+    properties:
+      payload:
+        type: string
+      title:
+        type: string
+      type:
+        type: string
+    type: object
+  main.Content:
+    properties:
+      attachment:
+        $ref: '#/definitions/main.Attachment'
+      text:
+        type: string
+    type: object
+  main.Message:
+    properties:
+      mid:
+        type: string
+      text:
+        type: string
+    type: object
+  main.MessageReceived:
+    properties:
+      id:
+        type: string
+      messaging:
+        items:
+          $ref: '#/definitions/main.Messaging'
+        type: array
+      time:
+        type: integer
+    type: object
+  main.MessageSent:
+    properties:
+      message:
+        $ref: '#/definitions/main.Content'
+      recipient:
+        $ref: '#/definitions/main.User'
+    type: object
+  main.Messaging:
+    properties:
+      message:
+        $ref: '#/definitions/main.Message'
+      postback:
+        $ref: '#/definitions/main.Postback'
+      recipient:
+        $ref: '#/definitions/main.User'
+      sender:
+        $ref: '#/definitions/main.User'
+      timestamp:
+        type: integer
+    type: object
+  main.Payload:
+    properties:
+      buttons:
+        items:
+          $ref: '#/definitions/main.Button'
+        type: array
+      template_type:
+        type: string
+      text:
+        type: string
+    type: object
+  main.Postback:
+    properties:
+      mid:
+        type: string
+      payload:
+        type: string
+    type: object
+  main.User:
+    properties:
+      id:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API para receber e tratar mensagens enviadas pelo Messenger da Meta.
+  title: Smarters API
+  version: "1.0"
+paths:
+  /webhook:
+    post:
+      consumes:
+      - application/json
+      description: Recebe mensagens do Messenger e responde com texto ou botões
+      parameters:
+      - description: Mensagem recebida
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/main.MessageReceived'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.MessageSent'
+      summary: Processa mensagens recebidas do Messenger
+swagger: "2.0"

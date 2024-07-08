@@ -27,6 +27,18 @@ Para rodar os testes, utilize o comando:
 go test ./...
 ```
 
+## Importando Requisições no Postman
+
+Você pode importar o arquivo postman_collection.json incluído neste repositório para testar o servidor usando o Postman.
+
+Abra o Postman.
+Clique em Import no canto superior esquerdo.
+Selecione Import File e escolha o arquivo postman_collection.json.
+Clique em Import.
+
+
+## Explicações sobre o Docker
+O Dockerfile incluído neste repositório configura um ambiente Docker para executar o servidor Go. Ele copia os arquivos de código para o container, instala as dependências e expõe a porta 8080 para acesso externo.
 
 
 
