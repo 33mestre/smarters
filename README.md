@@ -80,6 +80,10 @@ A documentação Swagger para esta API está disponível em http://localhost:808
 
 ```sh
  go run main.go
- ````
+ ```
 
+## Documentação
 
+```sh
+godoc -http=:6060
+```

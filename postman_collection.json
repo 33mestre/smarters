@@ -18,16 +18,18 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"id\": \"PAGE_ID\",\n  \"time\": 1458692752478,\n  \"messaging\": [\n    {\n      \"sender\": {\n        \"id\": \"USER_ID\"\n      },\n      \"recipient\": {\n        \"id\": \"PAGE_ID\"\n      },\n      \"timestamp\": 1762902671,\n      \"message\": {\n        \"mid\": \"mid.1457764197618:41d102a3e1ae206a38\",\n        \"text\": \"ping\"\n      }\n    }\n  ]\n}"
+          "raw": "{\n  \"id\": \"PAGE_ID\",\n  \"time\": 1458692752478,\n  \"messaging\": [\n    {\n      \"sender\": {\n        \"id\": 123\n      },\n      \"recipient\": {\n        \"id\": 1111\n      },\n      \"timestamp\": 1762902671,\n      \"message\": {\n        \"mid\": \"mid.1457764197618:41d102a3e1ae206a38\",\n        \"text\": \"ping\"\n      }\n    }\n  ]\n}"
         },
         "url": {
-          "raw": "http://localhost:8080/webhook",
+          "raw": "http://localhost:8080/api/v1/webhook",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "8080",
           "path": [
+            "api",
+            "v1",
             "webhook"
           ]
         }
@@ -46,16 +48,18 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"id\": \"PAGE_ID\",\n  \"time\": 1458692752478,\n  \"messaging\": [\n    {\n      \"sender\": {\n        \"id\": \"USER_ID\"\n      },\n      \"recipient\": {\n        \"id\": \"PAGE_ID\"\n      },\n      \"timestamp\": 1762902671,\n      \"postback\": {\n        \"mid\": \"mid.1457764197618:41d102a3e1ae206a38\",\n        \"payload\": \"START_PAYLOAD\"\n      }\n    }\n  ]\n}"
+          "raw": "{\n  \"id\": \"PAGE_ID\",\n  \"time\": 1458692752478,\n  \"messaging\": [\n    {\n      \"sender\": {\n        \"id\": 123\n      },\n      \"recipient\": {\n        \"id\": 1111\n      },\n      \"timestamp\": 1762902671,\n      \"postback\": {\n        \"mid\": \"mid.1457764197618:41d102a3e1ae206a38\",\n        \"payload\": \"START_PAYLOAD\"\n      }\n    }\n  ]\n}"
         },
         "url": {
-          "raw": "http://localhost:8080/webhook",
+          "raw": "http://localhost:8080/api/v1/webhook",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "8080",
           "path": [
+            "api",
+            "v1",
             "webhook"
           ]
         }
