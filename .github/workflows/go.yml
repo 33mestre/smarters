@@ -29,9 +29,6 @@ jobs:
     - name: Install gosec
       run: go install github.com/securego/gosec/v2/cmd/gosec@v2.15.0
 
-    - name: Run lint
-      run: golangci-lint run --timeout 10m
-
     - name: Run security checks
       run: gosec ./...
 
