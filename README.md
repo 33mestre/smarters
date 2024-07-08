@@ -41,4 +41,8 @@ Clique em Import.
 O Dockerfile incluído neste repositório configura um ambiente Docker para executar o servidor Go. Ele copia os arquivos de código para o container, instala as dependências e expõe a porta 8080 para acesso externo.
 
 
+## Documentação Swagger
+A documentação Swagger para esta API está disponível em http://localhost:8080/swagger/index.html quando o servidor está em execução.
+
+
 
