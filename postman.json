@@ -1,0 +1,66 @@
+{
+  "info": {
+    "name": "Smarters API",
+    "_postman_id": "b0c7c73f-8e65-4c5a-9e4b-5d72c11a1f13",
+    "description": "Coleção para testar o servidor Go do Smarters",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Text Message",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"PAGE_ID\",\n  \"time\": 1458692752478,\n  \"messaging\": [\n    {\n      \"sender\": {\n        \"id\": \"USER_ID\"\n      },\n      \"recipient\": {\n        \"id\": \"PAGE_ID\"\n      },\n      \"timestamp\": 1762902671,\n      \"message\": {\n        \"mid\": \"mid.1457764197618:41d102a3e1ae206a38\",\n        \"text\": \"ping\"\n      }\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/webhook",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "webhook"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Button Message",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"PAGE_ID\",\n  \"time\": 1458692752478,\n  \"messaging\": [\n    {\n      \"sender\": {\n        \"id\": \"USER_ID\"\n      },\n      \"recipient\": {\n        \"id\": \"PAGE_ID\"\n      },\n      \"timestamp\": 1762902671,\n      \"postback\": {\n        \"mid\": \"mid.1457764197618:41d102a3e1ae206a38\",\n        \"payload\": \"START_PAYLOAD\"\n      }\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/webhook",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "webhook"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
