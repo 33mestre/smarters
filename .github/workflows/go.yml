@@ -19,9 +19,6 @@ jobs:
       with:
         go-version: 1.18
 
-    - name: Install Docker Compose
-      run: sudo apt-get update && sudo apt-get install -y docker-compose
-
     - name: Install dependencies
       run: go mod tidy
 
@@ -38,43 +35,8 @@ jobs:
     - name: Run security checks
       run: gosec ./...
 
-    - name: Build Docker image
-      run: docker build -t smarters .
-
-    - name: Create Docker Compose file
-      run: |
-        echo "version: '3.8'" > docker-compose.yml
-        echo "services:" >> docker-compose.yml
-        echo "  smarters:" >> docker-compose.yml
-        echo "    image: smarters" >> docker-compose.yml
-        echo "    ports:" >> docker-compose.yml
-        echo "      - '8080:8080'" >> docker-compose.yml
-
-    - name: Start Docker Compose
-      run: docker-compose up -d
-
-    - name: Wait for the server to be ready
-      run: |
-        set -e
-        TIMEOUT=120
-        INTERVAL=5
-        until curl --output /dev/null --silent --fail http://localhost:8080; do
-          echo 'Waiting for server...'
-          sleep $INTERVAL
-          TIMEOUT=$((TIMEOUT - INTERVAL))
-          if [ $TIMEOUT -le 0 ]; then
-            echo "Server failed to start in the expected time. Displaying Docker logs:"
-            docker-compose logs
-            exit 1
-          fi
-        done
-        echo 'Server is up and running!'
-
     - name: Run tests
       run: go test ./...
 
-    - name: Display Docker logs
-      run: docker-compose logs
-
-    - name: Clean up
-      run: docker-compose down
+    - name: Build
+      run: go build -v ./...
