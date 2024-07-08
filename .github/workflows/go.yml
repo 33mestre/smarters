@@ -35,8 +35,22 @@ jobs:
     - name: Run security checks
       run: gosec ./...
 
+    - name: Build Docker image
+      run: docker build -t smarters .
+
+    - name: Run Docker container
+      run: docker run -d -p 8080:8080 --name smarters smarters
+
+    - name: Wait for the server to be ready
+      run: |
+        until curl --output /dev/null --silent --fail http://localhost:8080; do
+          echo 'Waiting for server...'
+          sleep 2
+        done
+      shell: bash
+
     - name: Run tests
       run: go test ./...
 
-    - name: Build
-      run: go build -v ./...
+    - name: Clean up
+      run: docker rm -f smarters
