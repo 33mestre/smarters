@@ -5,6 +5,9 @@ issues:
     - path: _test\.go
       linters:
         - errcheck
+    - path: github.com/swaggo/swag
+      linters:
+        - goanalysis_metalinter
 linters:
   enable:
     - govet
