@@ -6,8 +6,8 @@ import (
 
 	_ "github.com/33mestre/smarters/docs"
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
 // @title Smarters API
@@ -100,7 +100,7 @@ func handleMessages(c *gin.Context) {
 }
 
 func forwardMessage(msg MessageReceived) {
-	// Implementar o envio da mensagem para outro endpoint
+	// Implemente o envio da mensagem para outro endpoint
 }
 
 func createResponse(msg MessageReceived) MessageSent {
