@@ -192,8 +192,6 @@ var SwaggerInfo = &swag.Spec{
 	Description:      "API para receber e tratar mensagens enviadas pelo Messenger da Meta.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
-	LeftDelim:        "{{",
-	RightDelim:       "}}",
 }
 
 func init() {
