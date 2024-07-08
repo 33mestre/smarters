@@ -304,8 +304,6 @@ var SwaggerInfo = &swag.Spec{
 	Description:      "Estrutura que representa um botão no payload",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
-	LeftDelim:        "{{",
-	RightDelim:       "}}",
 }
 
 func init() {
