@@ -6,6 +6,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/33mestre/smarters/database"
+	"github.com/33mestre/smarters/routes"
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,13 +15,16 @@ func TestHandleMessages(t *testing.T) {
 	// Configura o Gin para modo de teste
 	gin.SetMode(gin.TestMode)
 
+	// Inicializa o banco de dados
+	database.ConnectDatabase()
+
 	// Cria o roteador Gin
 	router := gin.Default()
-	router.POST("/webhook", handleMessages)
+	routes.RegisterRoutes(router)
 
 	// Corpo da requisição de teste
 	reqBody := []byte(`{"id": "PAGE_ID", "time": 1458692752478, "messaging": [{"sender": {"id": "USER_ID"}, "recipient": {"id": "PAGE_ID"}, "timestamp": 1762902671, "message": {"mid": "mid.1457764197618:41d102a3e1ae206a38", "text": "ping"}}]}`)
-	req, err := http.NewRequest("POST", "/webhook", bytes.NewBuffer(reqBody))
+	req, err := http.NewRequest("POST", "/api/v1/webhook", bytes.NewBuffer(reqBody))
 	if err != nil {
 		t.Fatal(err)
 	}
