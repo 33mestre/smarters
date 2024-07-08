@@ -6,8 +6,8 @@ require (
 	github.com/gin-gonic/gin v1.8.1
 	github.com/joho/godotenv v1.5.1
 	github.com/swaggo/files v1.0.1
-	github.com/swaggo/gin-swagger v1.5.3 // Versão compatível com v1.8.7 do swag
-	github.com/swaggo/swag v1.8.7 // Versão compatível com Go 1.18
+	github.com/swaggo/gin-swagger v1.5.3
+	github.com/swaggo/swag v1.8.7
 	golang.org/x/crypto v0.0.0-20211202192323-5770296d904e // indirect; Versão compatível com Go 1.18
 	gorm.io/driver/sqlite v1.5.6
 	gorm.io/gorm v1.25.10
