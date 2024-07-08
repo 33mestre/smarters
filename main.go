@@ -71,5 +71,7 @@ func main() {
 
 	// Inicia o servidor
 	log.Printf("Servidor está executando na porta %s\n", port)
-	r.Run(":" + port)
+	if err := r.Run(":" + port); err != nil {
+		log.Fatalf("Falha ao iniciar o servidor: %v", err)
+	}
 }

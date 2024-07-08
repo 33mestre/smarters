@@ -16,13 +16,13 @@ func ConnectDatabase() {
 	// Conecta ao banco de dados SQLite
 	database, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 	if err != nil {
-		log.Fatal("Failed to connect to database!", err)
+		log.Fatalf("Failed to connect to database! %v", err)
 	}
 
 	DB = database
 
 	// Migra os modelos para criar as tabelas no banco de dados
-	database.AutoMigrate(
+	if err := database.AutoMigrate(
 		&models.MessageReceived{},
 		&models.Message{},
 		&models.User{},
@@ -32,5 +32,7 @@ func ConnectDatabase() {
 		&models.Attachment{},
 		&models.Payload{},
 		&models.Button{},
-	)
+	); err != nil {
+		log.Fatalf("Failed to migrate database! %v", err)
+	}
 }
