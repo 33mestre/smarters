@@ -10,10 +10,3 @@ services:
       - PORT=8080
     volumes:
       - .:/app
-    depends_on:
-      - db
-
-  db:
-    image: sqlite:latest
-    volumes:
-      - ./test.db:/var/lib/sqlite/test.db
