@@ -431,6 +431,44 @@ godoc -http=:6060
 
 A documentação estará disponível em [http://localhost:6060/pkg/github.com/33mestre/smarters/](http://localhost:6060/pkg/github.com/33mestre/smarters/) enquanto o servidor estiver em execução.
 
+## Visualizando os Dados Persistidos
+
+Para verificar se os dados estão sendo corretamente persistidos no banco de dados SQLite, você pode usar o comando `sqlite3` no terminal. Siga os passos abaixo:
+
+1. Abra o terminal.
+    
+2. Navegue até o diretório onde o arquivo do banco de dados está localizado:
+    
+    ```sh
+    cd /path/to/your/project
+    ```
+    
+3. Inicie o cliente SQLite:
+    
+    ```sh
+    sqlite3 test.db
+    ```
+    
+4. Liste as tabelas disponíveis no banco de dados:
+    
+    ```sh
+    .tables
+    ```
+    
+5. Visualize os dados de uma tabela específica. Por exemplo, para ver os dados da tabela `message_receiveds`:
+    
+    ```sh
+    SELECT * FROM message_receiveds;
+    ```
+    
+6. Para sair do cliente SQLite, digite:
+    
+    ```sh
+    .exit
+    ```
+
+
+
 ## Licença
 
 Este projeto é licenciado sob os termos da licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.

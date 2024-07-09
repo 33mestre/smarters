@@ -4,6 +4,7 @@ package handlers
 import (
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/33mestre/smarters/database"
 	"github.com/33mestre/smarters/models"
@@ -30,7 +31,20 @@ func HandleMessages(c *gin.Context) {
 
 	log.Printf("Received message: %+v", msgReceived)
 	// Save the received message to the database
-	database.DB.Create(&msgReceived)
+	if err := database.DB.Create(&msgReceived).Error; err != nil {
+		log.Printf("Failed to save received message: %v", err)
+		c.JSON(http.StatusInternalServerError, models.ErrorResponse{Error: "Failed to save message"})
+		return
+	}
+
+	// Log the received message
+	logMessage := models.LogMessage{
+		Message:   "Received message: " + string(msgReceived.ID),
+		Timestamp: time.Now(),
+	}
+	if err := database.DB.Create(&logMessage).Error; err != nil {
+		log.Printf("Failed to log received message: %v", err)
+	}
 
 	// Respond to the user
 	responseMsg := createResponse(msgReceived)
@@ -80,4 +94,12 @@ func createResponse(msg models.MessageReceived) models.MessageSent {
 func sendMessage(msg models.MessageSent) {
 	// Implement sending the response message to the user
 	log.Printf("Sending message: %+v", msg)
+	// Log the sent message
+	logMessage := models.LogMessage{
+		Message:   "Sent message: " + string(msg.Recipient.ID),
+		Timestamp: time.Now(),
+	}
+	if err := database.DB.Create(&logMessage).Error; err != nil {
+		log.Printf("Failed to log sent message: %v", err)
+	}
 }

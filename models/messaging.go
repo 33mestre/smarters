@@ -1,3 +1,4 @@
+// Package models contém os modelos de dados para o projeto Smarters.
 package models
 
 // Messaging representa os detalhes da mensagem
@@ -13,5 +14,5 @@ type Messaging struct {
 	Message           *Message  `json:"message,omitempty"`                 // Detalhes da mensagem de texto
 	PostbackID        uint      `json:"postback_id"`                       // Chave estrangeira para Postback
 	Postback          *Postback `json:"postback,omitempty"`                // Detalhes do postback
-	MessageReceivedID string    `json:"message_received_id"`               // Chave estrangeira para MessageReceived
+	MessageReceivedID uint      `json:"message_received_id"`               // Chave estrangeira para MessageReceived
 }

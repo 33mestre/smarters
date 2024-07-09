@@ -32,6 +32,8 @@ func ConnectDatabase() {
 		&models.Attachment{},
 		&models.Payload{},
 		&models.Button{},
+		&models.LogMessage{}, // Adiciona a migração para LogMessage
+		&models.Messaging{},  // Adiciona a migração para Messaging
 	); err != nil {
 		log.Fatalf("Failed to migrate database! %v", err)
 	}
